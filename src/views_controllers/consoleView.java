@@ -61,6 +61,7 @@ public class consoleView {
         if (curGame.didWin('O')){
             System.out.println("The computer wins... Bow to your new mechanical overlords.");
         }
+        s.close();
 
 
 

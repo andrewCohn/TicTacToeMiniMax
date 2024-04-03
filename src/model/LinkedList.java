@@ -1,7 +1,7 @@
 package model;
 // Author: Andrew Cohn
 public class LinkedList<T> {
-    private Node head;
+    private Node head = null;
     private int size = 0;
     private class Node{
         private T val;
@@ -9,7 +9,7 @@ public class LinkedList<T> {
         private Node(T val){
             this.val = val;
             this.next = null;
-            size++;
+
         }
         private T getVal(){
             return this.val;
@@ -25,12 +25,21 @@ public class LinkedList<T> {
         Node temp = this.head;
         this.head = new Node(val);
         this.head.setNext(temp);
+        size++;
     }
     public void addToEnd(T val){
+        if (size == 0){
+            this.head = new Node(val);
+
+            size++;
+            return;
+        }
         Node cur = this.head;
         while (cur.next!=null){
             cur = cur.next;
         }
+        cur.next = new Node(val);
+        size ++;
     }
     public T get(int i){
         if (i >= size){
@@ -44,4 +53,16 @@ public class LinkedList<T> {
         }
         return cur.val;
     }
+    public T[] toArray(){
+        Object[] outArr = new Object[size];
+        Node cur = this.head;
+        int i = 0;
+        while (cur!=null){
+            outArr[i++] = cur.getVal();
+            cur = cur.next;
+        }
+        return (T[]) outArr;
+
+    }
+
 }

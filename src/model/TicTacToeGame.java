@@ -99,7 +99,7 @@ public class TicTacToeGame extends OurObservable {
       return;
     board[row][col] = 'O';
     // setChanged(); // Java needs this or the next message does not happen
-    notifyObservers(this); // Send update messages to all Observers
+    //notifyObservers(this); // Send update messages to all Observers
   }
 
   /**

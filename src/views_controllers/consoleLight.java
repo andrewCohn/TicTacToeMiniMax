@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class consoleLight {
     private static TTTGame game;
-    private static IntermediateAI compPlayer = new IntermediateAI();
+
 
     public static void main(String[] args) {
         game = new TTTGame(); // create the game

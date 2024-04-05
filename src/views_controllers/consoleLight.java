@@ -1,9 +1,6 @@
 package views_controllers;
 
-import model.IGotNowhereToGoException;
-import model.IntermediateAI;
-import model.Point;
-import model.TTTGame;
+import model.*;
 
 import java.util.Scanner;
 
@@ -46,16 +43,9 @@ public class consoleLight {
             catch(ArrayIndexOutOfBoundsException e){
                 System.out.println("Make sure you enter an integer between 0 and 2 (inclusive)");
             }
-            // computer makes a move
-            try {
-                Point aiPoint = compPlayer.desiredMove(game);
-                game.makeMove('O', aiPoint);
-            }
-            // if the computer can't move, the loop should end on the next iteration.
-            catch (IGotNowhereToGoException e){
-                continue;
-            }
-            System.out.println(game); // show the new game state
+            GameTree tree = new GameTree(game);
+            tree.buildTree('O');
+
 
         }
         s.close(); // prevents computer from exploding

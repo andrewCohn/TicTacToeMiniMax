@@ -106,6 +106,24 @@ public class TTTGame {
     public boolean available(int row, int col){
         return board[row][col] == '_';
     }
+
+    public static TTTGame makeCopy(TTTGame game){
+        TTTGame temp = new TTTGame();
+        char[][] boardCopy = new char[3][3];
+        for (int i = 0; i<3;i++){
+            for (int j = 0;j<3;j++){
+                boardCopy[i][j] = game.getBoard()[i][j];
+            }
+        }
+        temp.setBoard(boardCopy);
+        return temp;
+
+    }
+
+
+    private void setBoard(char[][] board){
+        this.board = board;
+    }
 }
 
 

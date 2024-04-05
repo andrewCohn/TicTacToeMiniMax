@@ -2,19 +2,19 @@ package model;
 // Author: Andrew Cohn
 public class GameTree {
     private class Node{
-        private TicTacToeGame gameState;
+        private TTTGame gameState;
         private int score;
         public LinkedList<Node> children;
 
-        public Node(TicTacToeGame game){
+        public Node(TTTGame game){
             // constuctor method for the node
             // note: leaves score unit. we will set it in the recursive exploration stage of the algorithm
             this.gameState = game;
         }
-        public void setGameState(TicTacToeGame board){
+        public void setGameState(TTTGame board){
             this.gameState = board;
         }
-        public TicTacToeGame getGameState(){
+        public TTTGame getGameState(){
             return gameState;
         }
         public void addChild(Node n){

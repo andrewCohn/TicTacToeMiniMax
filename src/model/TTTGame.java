@@ -8,14 +8,7 @@ package model;
 public class TTTGame {
     char[][] board;
 
-    public class Point {
-        public int row, col;
 
-        public Point(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-    }
 
     public TTTGame() {
         board = new char[3][3];
@@ -24,6 +17,9 @@ public class TTTGame {
                 board[i][j] = '_';
             }
         }
+    }
+    public char[][] getBoard(){
+        return board;
     }
 
     public String toString() {
@@ -106,6 +102,9 @@ public class TTTGame {
             }
         }
         return result;
+    }
+    public boolean available(int row, int col){
+        return board[row][col] == '_';
     }
 }
 

@@ -20,5 +20,5 @@ public interface TicTacToeStrategy {
    *  
    *  @return A java Point object where .x is the row and .y is the column. 
    */
-  public OurPoint desiredMove(TicTacToeGame theGame);
+  public Point desiredMove(TTTGame theGame);
 }

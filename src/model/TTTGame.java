@@ -38,7 +38,7 @@ public class TTTGame {
     }
 
     public boolean isOver(){
-        return maxMovesRemaining() == 0 || tied() || didWin('x') || didWin('O');
+        return maxMovesRemaining() == 0 || tied() || didWin('X') || didWin('O');
     }
 
     public boolean tied() {
@@ -105,6 +105,35 @@ public class TTTGame {
     }
     public boolean available(int row, int col){
         return board[row][col] == '_';
+    }
+
+    public static TTTGame makeCopy(TTTGame game){
+        TTTGame temp = new TTTGame();
+        char[][] boardCopy = new char[3][3];
+        for (int i = 0; i<3;i++){
+            for (int j = 0;j<3;j++){
+                boardCopy[i][j] = game.getBoard()[i][j];
+            }
+        }
+        temp.setBoard(boardCopy);
+        return temp;
+
+    }
+
+    public Point diff(TTTGame other){
+        for (int i = 0;i<3; i++){
+            for (int j=0;j<3;j++) {
+                if (this.board[i][j] != other.board[i][j]){
+                    return new Point(i,j);
+                }
+            }
+        }
+        return null;
+    }
+
+
+    public void setBoard(char[][] board){
+        this.board = board;
     }
 }
 

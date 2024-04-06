@@ -46,7 +46,7 @@ public class consoleLight {
             GameTree tree = new GameTree(game);
             tree.buildTree('O');
             Point best = tree.getBestMove('O');
-            if (best!=null){
+            if (best!=null&&!game.didWin('X')){
                 game.makeMove('O',best);
             }
             System.out.println(game);

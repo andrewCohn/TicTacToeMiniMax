@@ -50,7 +50,10 @@ public class GameTree {
                     temp.makeMove(player, new Point(i, j));
                     Node childNode = new Node(temp);
                     node.addChild(childNode);
-                    buildTreeRecursively(childNode, player == 'X' ? 'O' : 'X'); // Switch player for the next move
+                    if (!temp.isOver()){
+                        buildTreeRecursively(childNode, player == 'X' ? 'O' : 'X'); // Switch player for the next move
+                    }
+
                 }
             }
         }
@@ -60,7 +63,7 @@ public class GameTree {
         Node bestMove = null;
 
         for (Node child : root.getChildren()) {
-            int score = minimax(child, 0, false, player);
+            int score = minimax(child,  true);
             if (score > bestScore) {
                 bestScore = score;
                 bestMove = child;
@@ -77,38 +80,36 @@ public class GameTree {
         return null; // No best move found
     }
 
-    private int minimax(Node node, int depth, boolean isMaximizingPlayer, char player) {
+    private int minimax(Node node, boolean isMaximizingPlayer) {
         // Base case: leaf node
-        if (node.getChildren() == null || depth >= 4) { // Adjust depth as needed
-            return evaluate(node.getGameState(), player);
+
+        if (node.gameState.isOver()) {
+            return evaluate(node);
         }
 
         if (isMaximizingPlayer) {
             int bestScore = Integer.MIN_VALUE;
             for (Node child : node.getChildren()) {
-                int score = minimax(child, depth + 1, false, player);
+                int score = minimax(child, false);
                 bestScore = Math.max(bestScore, score);
             }
             return bestScore;
         } else {
             int bestScore = Integer.MAX_VALUE;
             for (Node child : node.getChildren()) {
-                int score = minimax(child, depth + 1, true, player);
+                int score = minimax(child,true);
                 bestScore = Math.min(bestScore, score);
             }
             return bestScore;
         }
     }
 
-    private int evaluate(TTTGame gameState, char player) {
-        if (gameState.didWin(player)){
+    private int evaluate(Node n) {
+        if (n.gameState.didWin('O')){
             return 1;
         }
-        if (gameState.didWin(player == 'X' ? 'O' : 'X')){
+        if (n.gameState.didWin('X')){
             return -1;
-        }
-        if (gameState.tied()){
-            return 0;
         }
         return 0;
     }

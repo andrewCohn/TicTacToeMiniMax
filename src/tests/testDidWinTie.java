@@ -11,6 +11,19 @@ public class testDidWinTie {
         temp.setBoard(colWin);
         assertTrue(temp.didWin('X'));
         assertTrue(temp.isOver());
+        char[][] rowWin = {{'X','X','X'},{'_','_','_'},{'_','_','_'}};
+        temp = new TTTGame();
+        temp.setBoard(rowWin);
+        assertTrue(temp.didWin('X'));
+        assertTrue(temp.isOver());
+        char[][] diagWin = {{'X','_','_'},{'_','X','_'},{'_','_','X'}};
+        temp = new TTTGame();
+        temp.setBoard(diagWin);
+        assertTrue(temp.didWin('X'));
+        assertTrue(temp.isOver());
+        }
+
+
     }
 
-}
+

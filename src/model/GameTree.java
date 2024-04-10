@@ -91,6 +91,7 @@ public class GameTree {
         if (isMaximizingPlayer) {
             int bestScore = Integer.MIN_VALUE;
             for (Node child : node.getChildren()) {
+
                 int score = minimax(child,depth-1, false,(player == 'X') ? 'O' : 'X');
                 bestScore = Math.max(bestScore, score);
             }

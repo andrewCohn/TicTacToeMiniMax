@@ -60,9 +60,9 @@ public class GameTree {
 
                     if (immediateWinPossible(temp, opponent)) {
                         childNode.score = -1000;  // Discourage this move significantly
-                    } else {
-                        buildTreeRecursively(childNode, opponent, depth + 1);
                     }
+                    buildTreeRecursively(childNode, opponent, depth + 1);
+
                 }
             }
         }

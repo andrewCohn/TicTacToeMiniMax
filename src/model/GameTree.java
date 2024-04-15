@@ -122,6 +122,7 @@ public class GameTree {
         return bestScore;
     }
 
+
     private int evaluate(Node node, int depth, char player) {
         TTTGame gameState = node.getGameState();
         if (gameState.didWin(player)) {

@@ -59,7 +59,7 @@ public class GameTree {
                     node.addChild(childNode);
 
                     if (immediateWinPossible(temp, opponent)) {
-                        childNode.score = -1000;  // Discourage this move significantly
+                        childNode.score = isMax ? -1000:1000;  // Discourage this move significantly
                     }
                     buildTreeRecursively(childNode, opponent, depth + 1,!isMax);
 

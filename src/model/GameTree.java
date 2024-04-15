@@ -39,12 +39,12 @@ public class GameTree {
     }
 
     public void buildTree(char player) {
-        buildTreeRecursively(root, player, 0);
+        buildTreeRecursively(root, player, 0,true);
     }
 
-    private void buildTreeRecursively(Node node, char player, int depth) {
+    private void buildTreeRecursively(Node node, char player, int depth,boolean isMax) {
         if (node.getGameState().isOver() || depth == 9) {  // Use a constant or configuration for max depth
-            node.score = evaluate(node, depth, player);
+            node.score = evaluate(node, depth, player,isMax);
             return;
         }
 
@@ -61,7 +61,7 @@ public class GameTree {
                     if (immediateWinPossible(temp, opponent)) {
                         childNode.score = -1000;  // Discourage this move significantly
                     }
-                    buildTreeRecursively(childNode, opponent, depth + 1);
+                    buildTreeRecursively(childNode, opponent, depth + 1,!isMax);
 
                 }
             }
@@ -123,12 +123,12 @@ public class GameTree {
     }
 
 
-    private int evaluate(Node node, int depth, char player) {
+    private int evaluate(Node node, int depth, char player,boolean isMax) {
         TTTGame gameState = node.getGameState();
         if (gameState.didWin(player)) {
-            return 10 - depth;  // Reward quicker wins more
+            return isMax ?  10 - depth : node.gameState.tied() ? 0 : -10 + depth;  // Reward quicker wins more
         } else if (gameState.didWin((player == 'X' ? 'O' : 'X'))) {
-            return -10 + depth;  // Less penalty for losses that occur later
+            return isMax ?  -10 + depth : node.gameState.tied() ? 0 : 10 - depth;  // Less penalty for losses that occur later
         }
         return 0;
     }

@@ -7,7 +7,7 @@ import model.*;
 
 
 public class MinimaxTest {
-    @Test
+	@Test(timeout = 5000)
     public void testBlock(){
         // O TO MOVE
 

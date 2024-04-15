@@ -7,9 +7,17 @@ public class Point {
         this.row = row;
         this.col = col;
     }
-
-    public boolean equals(Point p){
-        return this.row == p.row && this.col==p.col;
+    // this is just for testing- makes assertEquals work correctly
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Point p = (Point) obj;
+        return this.row == p.row && this.col == p.col;
     }
 
     public String toString(){

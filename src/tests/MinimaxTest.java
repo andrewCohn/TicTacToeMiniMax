@@ -29,7 +29,7 @@ public class MinimaxTest {
 
     }
     @Test
-    public void testWin(){
+    public void testDiagWin(){
         char[][] diagWin = {{'O', 'X', '_'},{'_', 'X', 'X'},{'O', '_', 'O'}};
 
         /*
@@ -39,10 +39,31 @@ public class MinimaxTest {
          */
         TTTGame temp = new TTTGame(); // make the game
         temp.setBoard(diagWin); // set the board to the predefined position
+        System.out.println(temp);
         GameTree tempTree = new GameTree(temp); // make a game tree
         tempTree.buildTree('O'); // build the game tree, from the current player's move
         Point ourValue = tempTree.getBestMove('O'); // decide what the current players best move is
+        temp.makeMove('O',ourValue);
         Point actualBest = new Point(1,1);
+        assertEquals(actualBest,ourValue);
+    }
+    @Test
+    public void testRowWin(){
+        char[][] rowWin = {{'O', 'X', 'X'},{'X', 'X', '_'},{'O', 'O', '_'}};
+
+        /*
+        O X X
+        X X _
+        O O _
+         */
+        TTTGame temp = new TTTGame(); // make the game
+        temp.setBoard(rowWin); // set the board to the predefined position
+        System.out.println(temp);
+        GameTree tempTree = new GameTree(temp); // make a game tree
+        tempTree.buildTree('O'); // build the game tree, from the current player's move
+        Point ourValue = tempTree.getBestMove('O'); // decide what the current players best move is
+        temp.makeMove('O',ourValue);
+        Point actualBest = new Point(2,2);
         assertEquals(actualBest,ourValue);
     }
 

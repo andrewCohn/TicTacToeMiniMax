@@ -28,4 +28,25 @@ public class MinimaxTest {
         assertEquals(actualBest,ourValue);
 
     }
+    @Test
+    public void testWin(){
+        char[][] diagWin = {{'O', 'X', '_'},{'_', 'X', 'X'},{'O', '_', 'O'}};
+
+        /*
+        X X O
+        _ _ _
+        O _ X
+         */
+        TTTGame temp = new TTTGame(); // make the game
+        temp.setBoard(diagWin); // set the board to the predefined position
+        GameTree tempTree = new GameTree(temp); // make a game tree
+        tempTree.buildTree('O'); // build the game tree, from the current player's move
+        Point ourValue = tempTree.getBestMove('O'); // decide what the current players best move is
+        Point actualBest = new Point(1,1);
+        assertEquals(actualBest,ourValue);
+    }
+
+
+
+
 }

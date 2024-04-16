@@ -9,7 +9,7 @@ import model.*;
 
 public class MinimaxTest {
     @Test
-    public void testBlock(){
+    public void testColBlock(){
         // O TO MOVE
 
         char[][] colBlock = {{'O', 'X', '_'},{'_', 'X', '_'},{'_', '_', '_'}};
@@ -30,8 +30,45 @@ public class MinimaxTest {
 
     }
     @Test
+    public void testRowBlock(){
+        // O TO MOVE
+
+        char[][] colBlock = {{'O', 'X', '_'},{'_', 'X', '_'},{'_', '_', '_'}};
+        rotate90Degrees(colBlock);
+        /*
+        _ _ O
+        _ X X
+        _ _ _
+        */
+
+        TTTGame temp = new TTTGame(); // make the game
+        temp.setBoard(colBlock); // set the board to the predefined position
+        System.out.println(temp);
+        GameTree tempTree = new GameTree(temp); // make a game tree
+        tempTree.buildTree('O'); // build the game tree, from the current player's move
+        Point ourValue = tempTree.getBestMove('O'); // decide what the current players best move is
+        // does the generated point match what we as humans understand to be the best?
+        Point actualBest = new Point(1,0);
+        assertEquals(actualBest,ourValue);
+
+    }
+    @Test
+    public void testDiagBlock(){
+        char[][] diagBlock = {{'O', 'O', 'X'},{'X', '_', '_'},{'X', '_', '_'}};
+        TTTGame temp = new TTTGame(); // make the game
+        temp.setBoard(diagBlock); // set the board to the predefined position
+        System.out.println(temp);
+        GameTree tempTree = new GameTree(temp); // make a game tree
+        tempTree.buildTree('O'); // build the game tree, from the current player's move
+        Point ourValue = tempTree.getBestMove('O'); // decide what the current players best move is
+        temp.makeMove('O',ourValue);
+        System.out.println(temp);
+        Point actualBest = new Point(1,1);
+        assertEquals(actualBest,ourValue);
+    }
+    @Test
     public void testDiagWin(){
-        char[][] diagWin = {{'O', 'X', 'O'},{'X', '_', '_'},{'O', '_', '_'}};
+        char[][] diagWin = {{'X', 'X', 'O'},{'X', '_', '_'},{'O', '_', '_'}};
 
         /*
         X X O
@@ -67,6 +104,26 @@ public class MinimaxTest {
         temp.makeMove('O',ourValue);
         System.out.println(temp);
         Point actualBest = new Point(2,2);
+        assertEquals(actualBest,ourValue);
+    }
+    @Test
+    public void testColWin(){
+        char[][] colWin = {{'O', 'X', 'X'},{'O', 'X', 'O'},{'_', '_', 'X'}};
+
+        /*
+        O X X
+        O X O
+        _ _ X
+         */
+        TTTGame temp = new TTTGame(); // make the game
+        temp.setBoard(colWin); // set the board to the predefined position
+        System.out.println(temp);
+        GameTree tempTree = new GameTree(temp); // make a game tree
+        tempTree.buildTree('O'); // build the game tree, from the current player's move
+        Point ourValue = tempTree.getBestMove('O'); // decide what the current players best move is
+        temp.makeMove('O',ourValue);
+        System.out.println(temp);
+        Point actualBest = new Point(2,0);
         assertEquals(actualBest,ourValue);
     }
     @Test
@@ -129,7 +186,25 @@ public class MinimaxTest {
         return ((double) value / total) * 100;
     }
 
+    public static void rotate90Degrees(char[][] matrix) {
+        // Transpose the matrix
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = i; j < matrix[0].length; j++) {
+                char temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
 
+        // Reverse the rows
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length / 2; j++) {
+                char temp = matrix[i][j];
+                matrix[i][j] = matrix[i][matrix.length - 1 - j];
+                matrix[i][matrix.length - 1 - j] = temp;
+            }
+        }
+    }
 
 
 }
